@@ -1,87 +1,116 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    text-align: center;
-    /* margin: 50px; */
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    margin-top: 2%;
+    margin: 0;
+    padding: 10px;
     height: 100vh;
+    background-color: whie;
 }
 
-#addItems{
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px  rgb(0, 0, 0);
+.container {
+    max-width: 600px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 8px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: grey;
+}
+
+.remoreItmeBtn {
+    background: red;
+    border-radius: 2px;
+    border: none;
+    color: white;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+}
+
+#addItem {
+    background: rgb(23, 67, 199);
+    border-radius: 2px;
+    border: none;
+    color: white;
+    /* width: 120px; */
+    height: 35px;
+    cursor: pointer;
+}
+
+#sortButton {
+    background: rgb(23, 67, 199);
+    border-radius: 2px;
+    border: none;
+    color: white;
+    /* width: 120px; */
+    height: 35px;
+    cursor: pointer;
+}
+
+.theTask {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    align-items: center;
+    padding-top: 10px;
+    align-items: center;
+    border: rgb(199, 199, 199) solid 1px;
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.inputTaskDiv {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+    align-items: center;
+    gap: 4px;
+    padding-bottom: 40px;
+}
+
+#taskInput {
+    border-radius: 2px;
+    border: rgb(199, 199, 199) solid 1px;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+#error {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 4px;
+    color: red;
+}
+
+#taskList {
     display: flex;
     flex-direction: column;
-    align-items: start;
-    width: 100%;
+    gap: 16px;
 }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-}
-
-input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-    box-sizing: border-box;
-    border-radius: 3px;
-}
-
-#addBtn {
-    background-color:crimson;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-}
-
-#addBtn:hover {
-    opacity: 0.6;
-}
-
-
-#clearBtn {
-    background-color:rgb(42, 42, 118);
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-}
-
-.btnDiv{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    gap: 4px;
-}
-
-
-#clearBtn:hover {
-    opacity: 0.6;
-}
-.taskItem input[type="checkbox"] {
-    margin-right: 10px; 
-}
-
-@media screen and (max-width: 412px) {
-    .btnDiv{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        gap: 4px;
-    }
-
+.taskName {
+    color: black;
+    color: 10px;
 }

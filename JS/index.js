@@ -1,30 +1,104 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const addBtn = document.getElementById('addBtn');
-    const taskInput = document.getElementById('value1');
-    const taskList = document.getElementById('taskList');
+// Get tasks from localStorage 
+const storedTasks = localStorage.getItem("tasks");
+const taskList = storedTasks ? JSON.parse(storedTasks) : [];
+const taskInput = document.getElementById("taskInput");
+const addItemButton = document.getElementById("addItem");
+const listContainer = document.getElementById("taskList");
+const errorSpan = document.getElementById("error");
+const sortButton = document.getElementById("sortButton");
 
-    addBtn.addEventListener('click', function () {
-        const taskText = taskInput.value.trim();
-
-        if (taskText !== '') {
-            const newTask = document.createElement('li');
-            newTask.style.listStyle = 'none'; // Remove default bullet point style
-
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-
-            const taskLabel = document.createElement('label');
-            taskLabel.textContent = taskText;
-
-            newTask.appendChild(checkbox);
-            newTask.appendChild(taskLabel);
-            taskList.appendChild(newTask);
-            taskInput.value = '';
-        } else {
-            alert('Please enter a task!');
-        }
-    });
+//  Clear the error when the user types again
+taskInput.addEventListener("input", function () {
+    errorSpan.innerText = ""; // Clear the error message when the user types
 });
 
+addItemButton.addEventListener("click", addItem);
+sortButton.addEventListener("click", sortTasks); // Event listener for sort button
 
+function addItem() {
+    const taskName = taskInput.value.trim();
+    if (isValidTask(taskName)) {
+        const task = {
+            id: generateId(),
+            name: taskName.charAt(0).toUpperCase() + taskName.slice(1),
+            createdDate: new Date().toLocaleDateString(),
+            completed: false,
+        };
+        taskList.push(task);
+        saveTasksToLocalStorage(); // Save tasks to localStorage after addition
+        renderTasks();
+        taskInput.value = "";
+    } else {
+        errorSpan.innerText = "Please enter a valid task name!";
+    }
+}
 
+///Check if task is valid
+const isValidTask = (name) => {
+    return name !== "" && name.length > 3;
+}
+
+/// Generate a new ID for every task so it is unique
+const generateId = () => {
+    return Math.random().toString(36);
+}
+
+/// Mark  task as complete and set Boolean of completed to true in  localStorage
+function toggleTaskCompletion(id) {
+    const task = taskList.find((task) => task.id === id);
+    if (task) {
+        task.completed = !task.completed;
+        saveTasksToLocalStorage(); // Save tasks to localStorage after completion status change
+        renderTasks();
+    }
+}
+
+/// Remove task and remove from localStorage
+function removeTask(id) {
+    const tasks = taskList.findIndex((task) => task.id === id);
+    if (tasks !== -1) {
+        // Remove only one task from the given id being passed into the fuction
+        taskList.splice(tasks, 1);
+        saveTasksToLocalStorage(); // Save tasks to localStorage after task removal
+        renderTasks();
+    }
+}
+
+//  Save tasks to localStorage
+function saveTasksToLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+}
+
+// Sorting the tasks
+let isSorted = false;
+
+function sortTasks() {
+    isSorted = !isSorted;
+    if (isSorted) {
+        taskList.sort((a, b) => (a.name > b.name ? 1 : -1)); // Sort alphabetically
+    } else {
+        taskList.sort((a, b) => (a.name < b.name ? 1 : -1)); //  reverse alphabetical order
+    }
+    renderTasks();
+}
+
+///Rending the task on the DOM so that user can see
+function renderTasks() {
+    const tasksHTML = taskList
+        .map((task) => {
+            let checkbox = `<input type="checkbox" ${task.completed ? "checked" : ""
+                } onChange="toggleTaskCompletion('${task.id}')"/>`;
+            let text = `<span class="${task.completed ? "completed" : ""} taskName">${task.name
+                } - Created: ${task.createdDate}</span>`;
+            let removeButton = `<button class="remoreItmeBtn" onclick="removeTask('${task.id}')">Remove</button>`;
+            return `<div class="theTask">
+      <div>${checkbox}${text}</div>
+      <div>${removeButton}</div></div>`;
+        })
+        .join("");
+
+    listContainer.innerHTML = tasksHTML;
+}
+
+// Initial render of tasks
+renderTasks();
