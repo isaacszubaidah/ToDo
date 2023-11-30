@@ -46,7 +46,7 @@ li {
     cursor: pointer;
 }
 
-#addItem {
+#addTaskItem {
     background: rgb(23, 67, 199);
     border-radius: 2px;
     border: none;
@@ -81,11 +81,11 @@ li {
 
 .inputTaskDiv {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     max-width: 1000px;
     align-items: center;
-    gap: 4px;
+    /* gap: 4px; */
     padding-bottom: 40px;
 }
 

@@ -1,22 +1,22 @@
 // Get tasks from localStorage 
 const storedTasks = localStorage.getItem("tasks");
 const taskList = storedTasks ? JSON.parse(storedTasks) : [];
-const taskInput = document.getElementById("taskInput");
-const addItemButton = document.getElementById("addItem");
+const inputToAddTask = document.getElementById("inputToAddTask");
+const addTaskItemButton = document.getElementById("addTaskItem");
 const listContainer = document.getElementById("taskList");
 const errorSpan = document.getElementById("error");
 const sortButton = document.getElementById("sortButton");
 
 //  Clear the error when the user types again
-taskInput.addEventListener("input", function () {
+inputToAddTask.addEventListener("input", function () {
     errorSpan.innerText = ""; // Clear the error message when the user types
 });
 
-addItemButton.addEventListener("click", addItem);
+addTaskItemButton.addEventListener("click", addTaskItem);
 sortButton.addEventListener("click", sortTasks); // Event listener for sort button
 
-function addItem() {
-    const taskName = taskInput.value.trim();
+function addTaskItem() {
+    const taskName = inputToAddTask.value.trim();
     if (isValidTask(taskName)) {
         const task = {
             id: generateId(),
@@ -27,7 +27,7 @@ function addItem() {
         taskList.push(task);
         saveTasksToLocalStorage(); // Save tasks to localStorage after addition
         renderTasks();
-        taskInput.value = "";
+        inputToAddTask.value = "";
     } else {
         errorSpan.innerText = "Please enter a valid task name!";
     }
