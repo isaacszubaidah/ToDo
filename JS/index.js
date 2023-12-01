@@ -79,21 +79,25 @@ function sortTasks() {
     } else {
         taskList.sort((a, b) => (a.name < b.name ? 1 : -1)); //  reverse alphabetical order
     }
-    renderTasks();
+  
+
 }
 
 ///Rending the task on the DOM so that user can see
+//The map() function iterates over each element in the taskList array.
+//checkbox variable: It generates an <input> element representing a checkbox. If task.completed is true, it adds the "checked" attribute to mark the checkbox as checked. The onChange attribute calls the toggleTaskCompletion function with the task.id as an argument when the checkbox state changes.
 function renderTasks() {
     const tasksHTML = taskList
-        .map((task) => {
-            let checkbox = `<input type="checkbox" ${task.completed ? "checked" : ""
-                } onChange="toggleTaskCompletion('${task.id}')"/>`;
-            let text = `<span class="${task.completed ? "completed" : ""} taskName">${task.name
-                } - Created: ${task.createdDate}</span>`;
-            let removeButton = `<button class="remoreItmeBtn" onclick="removeTask('${task.id}')">Remove</button>`;
-            return `<div class="theTask">
-      <div>${checkbox}${text}</div>
-      <div>${removeButton}</div></div>`;
+    .map((task) => {
+        let checkbox = `<input type="checkbox" ${task.completed ? "checked" : ""
+    } onChange="toggleTaskCompletion('${task.id}')"/>`;
+    let text = `<span class="${task.completed ? "completed" : ""} taskName">${task.name
+    } - Created: ${task.createdDate}</span>`;
+    let removeButton = `<button class="remoreItmeBtn" onclick="removeTask('${task.id}')">Remove</button>`;
+    return `<div class="theTask">
+    <div>${checkbox}${text}</div>
+    <div>${removeButton}</div></div>`;
+    //The generated HTML elements for each task (checkbox, text, remove button) are combined within a <div class="theTask"> container.
         })
         .join("");
 
